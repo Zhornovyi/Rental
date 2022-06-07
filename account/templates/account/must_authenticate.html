@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+	<div class="d-flex flex-column">
+		<p class="m-auto">
+            Будь-ласка
+			<a href="{% url 'register' %}">зареєструйтесь</a> або
+			<a href="{% url 'login' %}">ввійдіть</a>
+            для продовження
+		</p>
+	</div>
+</div>
+
+
+{% endblock content %}

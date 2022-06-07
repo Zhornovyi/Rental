@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+	@media (max-width: 768px) { 
+		.right-column{
+			margin-left: 0;
+		}
+	}
+	@media (min-width: 768px) { 
+		.right-column{
+			margin-left: 20px;
+		}
+	}
+	.blog-post-container{
+		margin-bottom: 20px;
+		width: 100%;
+	}
+	.create-post-bar{
+		background-color: #fff;
+		margin-bottom:20px;
+	}
+	.left-column{
+		padding:0;
+	}
+	.right-column{
+		padding:0;
+	}
+	.lead{
+		font-size: 17px;
+	}
+    {#.height{#}
+    {#    height: 100vh;#}
+    {#   }#}
+
+
+       .search{
+       position: relative;
+       box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+
+       }
+
+       .search input{
+
+        height: 60px;
+        text-indent: 25px;
+        border: 2px solid #d6d4d4;
+
+
+       }
+       .search input:focus{
+
+        box-shadow: none;
+        border: 2px solid blue;
+
+
+       }
+
+       .search .fa-search{
+
+        position: absolute;
+        top: 20px;
+        left: 16px;
+
+       }
+
+       .search button{
+
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 50px;
+        width: 110px;
+        background: blue;
+
+       }
+</style>
+
+<div class="container pb-5 pt-5">
+
+    <div class="row height d-flex justify-content-center align-items-center">
+
+      <div class="col-md-8">
+
+        <div class="search">
+            <form onsubmit="return executeQuery();">
+                <i class="fa fa-search"></i>
+                <input type="text" class="form-control" name="q" id="id_q" placeholder="Введіть пошуковий запит">
+                <button class="btn btn-info" type="submit">Пошук</button>
+            </form>
+        </div>
+
+      </div>
+
+    </div>
+</div>
+<div class="container">
+
+		<!-- estates feed -->
+			<!-- Estate posts-->
+			{% if estate_posts %}
+				{% for post in estate_posts %}
+					<div class="estate-post-container">
+						{% include 'estate/snippets/estate_post_snippet.html' with estate_post=post %}
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="estate-post-container">
+					{% include 'estate/snippets/estate_post_snippet.html' with query=query %}
+				</div>
+			{% endif %}
+			<!-- End Estate posts-->
+			
+			<!-- Pagination -->
+			{% include 'estate/snippets/estate_post_pagination.html' with estate_posts=estate_posts %}
+
+		</div>
+		<!-- end blog feed -->
+
+</div>
+
+<script type="text/javascript">
+	document.getElementById("id_q").value = "{{query}}"
+</script>
+<script type="text/javascript">
+	function executeQuery(){
+		var query = document.getElementById("id_q").value
+		window.location.replace("http://127.0.0.1:8000/?q=" + query)
+		// "https://open-api.xyz/?q=" + query
+		return false
+	}
+</script>
+
+{% endblock content %}

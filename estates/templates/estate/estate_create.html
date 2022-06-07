@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style type="text/css">
+  .create-form {
+	    width: 100%;
+	    max-width: 100%;
+	    padding: 15px;
+	    margin: auto;
+  	}
+  	.submit-button{
+  		max-width: 200px;
+  	}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-7 offset-lg-1">
+			<form class="create-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+				<div class="form-group">
+					<label for="id_title">Заголовок</label>
+					<input class="form-control" type="text" name="post_title" id="id_title" placeholder="Оренда 2-кімнатної квартири в центрі міста" required autofocus>
+				</div>
+                <div class="form-group">
+					<label for="id_city">Місто</label>
+					<input class="form-control" type="text" name="city" id="id_city" placeholder="Львів" required autofocus>
+				</div>
+                <div class="form-group">
+					<label for="id_address">Адреса</label>
+					<input class="form-control" type="text" name="address" id="id_address" placeholder="Степана Бандери, 100" required autofocus>
+				</div>
+                <div class="form-group">
+					<label for="id_type">Тип обʼєкту</label>
+					<input class="form-control" type="text" name="type" id="id_type" placeholder="Квартира" required autofocus>
+				</div>
+                <div class="form-group">
+					<label for="id_price">Ціна (UAH)</label>
+					<input class="form-control" type="number" name="price" id="id_price" placeholder="10000" required autofocus>
+				</div>
+                <div class="form-group">
+					<label for="id_square">Площа обʼєкту</label>
+					<input class="form-control" type="number" name="square_meters" id="id_square" placeholder="200" required autofocus>
+				</div>
+                <div class="form-group">
+					<label for="id_floor">Поверх</label>
+					<input class="form-control" type="number" name="floor" id="id_floor" placeholder="9" required autofocus>
+				</div>
+                <div class="form-group">
+					<label for="id_body">Опис нерухомості</label>
+					<textarea class="form-control" rows="10" name="description" id="id_body" placeholder="Опишіть нерухомість" required></textarea>
+				</div>
+                <div class="form-group">
+					<label for="id_image">Документ</label>
+					<input  type="file" name="proof_doc" id="id_doc" accept="application/pdf" required>
+				</div>
+				<!-- Image -->
+				<div class="form-group">
+					<label for="id_image">Фото</label>
+					<input  type="file" name="image" id="id_image" accept="image/*" required>
+				</div>
+				<!-- Submit btn -->
+				<button class="submit-button btn btn-lg btn-primary btn-block" type="submit">Опублікувати</button>
+			</form>	
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

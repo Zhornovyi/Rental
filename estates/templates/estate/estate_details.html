@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style type="text/css">
+	
+	.card {
+		max-width: 700px;
+	}
+
+	.container{
+		padding: 20px;
+	}
+</style>
+
+<div class="container">
+    <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">{{estate_post.post_title}}</h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">Оновлено {{estate_post.date_updated}}</div>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" src={{estate_post.image.url}}></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <h3>Опис приміщення</h3>
+                            <p>{{estate_post.description}}</p>
+                        </section>
+                    </article>
+                    <!-- Comments section-->
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Залиште відгук про даний обʼєкт"></textarea></form>
+                                <!-- Single comment-->
+                                {% for comment in estate_post.estatereview_set.all%}
+                                    <div class ="container">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">{{ comment.author.username }}</div>
+                                            {{ comment.text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Особливості обʼєкту</div>
+                        <div class="card-body">
+                            <h4 class="card-text">Обʼєкт: {{estate_post.type}}</h4>
+                            <h4 class="card-text">Місто: {{estate_post.city}}</h4>
+                            <h4 class="card-text">Адреса: {{estate_post.address}}</h4>
+                            <h4 class="card-text">Ціна: {{estate_post.price}} грн</h4>
+                        </div>
+                        <div class = "container text-center">
+                            <button type="button" class="btn btn-info">Отримати номер телефону</button>
+                        </div>
+                        <div class="container text-center">
+                            <button type="button" class="btn btn-info">Оглянути квартиру</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+{#<div class="container">#}
+{#	<div class="row">#}
+{#		<div class="card m-auto">#}
+{#			<img class="card-img-top" src="{{estate_post.image.url}}">#}
+{#			<div class="card-body my-2">#}
+{#				<h2 class="card-title">{{estate_post.post_title}}</h2>#}
+{#                <h3 class="card-text">{{estate_post.price}}</h3>#}
+{#                <h3 class="card-text">{{estate_post.address}}</h3>#}
+{#                <h3 class="card-text">{{estate_post.type}}</h3>#}
+{#				<p class="card-text">{{estate_post.description|linebreaksbr}}</p>#}
+{#				<p>#}
+{#					{% if estate_post.author == request.user %}#}
+{#						<a href="{% url 'estates:edit' estate_post.slug %}" class="btn btn-primary">Редагувати</a>#}
+{#					{% endif %}#}
+{#				</p>#}
+{#				#}
+{#			</div>#}
+{#			<div class="card-footer text-muted">#}
+{#				Оновлено {{estate_post.date_updated}}#}
+{#			</div>#}
+{#		</div>#}
+{#		<!-- end Blog post -->#}
+{##}
+{#	</div>#}
+{#</div>#}
+
+{% endblock content %}

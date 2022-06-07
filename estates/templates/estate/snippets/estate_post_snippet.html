@@ -1,0 +1,61 @@
+{% load static %}
+<style type="text/css">
+	.card{
+		max-width: 700px;
+		width: 100%;
+	}
+	.card-body{
+		padding: 20px;
+
+	}
+</style>
+
+{% if estate_post %}
+<div class="container">
+	<div class="row">
+
+		
+		<!-- Blog Post -->
+		<div class="card m-auto">
+			<a href="{% url 'estates:detail' post.slug %}">
+                {% if estate_post.image %}
+				    <img class="card-img-top" src="{{estate_post.image.url}}">
+                {% else %}
+                    <img class="card-img-top" src="{% static 'img_not_found.png' %}">
+                {% endif %}
+			</a>
+			
+			<div class="card-body mt-2 mb-2">
+				<a href="{% url 'estates:detail' post.slug %}">
+					<h2 class="card-title">{{estate_post.post_title}}</h2>
+				</a>
+                <h6 class="card-subtitle mb-2 text-muted">{{ estate_post.price }} UAH на місяць</h6>
+				<p class="card-text">{{estate_post.description|linebreaksbr|truncatechars:250}}</p>
+
+				{% if estate_post.author == request.user %}
+					<a href="{% url 'estates:edit' estate_post.slug %}" class="btn btn-info">Оновити</a>
+				{% endif %}
+			</div>
+			<div class="card-footer text-muted">
+			  Оновлено: {{estate_post.date_updated}} {{estate_post.author}}
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+{% else %}
+
+<div class="container"> 
+	<div class="row">
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+				<h2 class="card-title">
+					Результатів не знайдено
+				</h2>
+				<p class="card-text"> Немає додного оголошення за вказаним запитом: "{{query}}".</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
